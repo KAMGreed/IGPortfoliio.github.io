@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imani Green - Web Animation Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            color: white;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .project-card h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .week-badge {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .project-description {
+            margin-bottom: 20px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            background: #f0f0f0;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        .project-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+        }
+
+        .project-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .features-list {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .features-list li {
+            padding: 5px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .features-list li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+        }
+
+        .intro-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            color: white;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .intro-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .intro-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+        .project-card:nth-child(5) { animation-delay: 0.5s; }
+        .project-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Imani Green</h1>
+            <p>Web Animation Portfolio</p>
+        </header>
+
+        <div class="intro-section">
+            <h2>Welcome to My Animation Journey</h2>
+            <p>Explore a collection of interactive web animations showcasing CSS transitions, keyframe animations, JavaScript interactions, Canvas graphics, and audio integration. Each project demonstrates different aspects of modern web animation techniques.</p>
+        </div>
+
+        <div class="portfolio-grid">
+            <div class="project-card">
+                <h3><span class="week-badge">WK1</span>CSS Animations & Transitions</h3>
+                <div class="project-description">
+                    <p>An introduction to CSS animations featuring keyframe animations and hover transitions. This project demonstrates basic animation principles with moving and rotating elements.</p>
+                    <ul class="features-list">
+                        <li>Keyframe animations with translateX and rotate</li>
+                        <li>Hover transitions with 3D transforms</li>
+                        <li>Multiple animation iterations and timing</li>
+                        <li>Interactive hover effects</li>
+                    </ul>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">Keyframes</span>
+                    <span class="tech-tag">Transitions</span>
+                    <span class="tech-tag">3D Transforms</span>
+                </div>
+                <a href="Week 1/wk1.html" class="project-link">View Project</a>
+            </div>
+
+            <div class="project-card">
+                <h3><span class="week-badge">WK2</span>Timing Functions & Bounce Effects</h3>
+                <div class="project-description">
+                    <p>Advanced CSS timing functions and cubic-bezier animations. Features interactive hover effects and a realistic bouncing ball animation.</p>
+                    <ul class="features-list">
+                        <li>Cubic-bezier timing functions</li>
+                        <li>Realistic bounce physics</li>
+                        <li>Interactive hover states</li>
+                        <li>Drop shadow effects</li>
+                    </ul>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">Cubic-Bezier</span>
+                    <span class="tech-tag">Physics</span>
+                    <span class="tech-tag">Hover Effects</span>
+                </div>
+                <a href="Week 2/wk2.html" class="project-link">View Project</a>
+            </div>
+
+            <div class="project-card">
+                <h3><span class="week-badge">WK3</span>JavaScript DOM Interactions</h3>
+                <div class="project-description">
+                    <p>Interactive popup form with JavaScript DOM manipulation. Demonstrates event handling, element visibility control, and smooth animations.</p>
+                    <ul class="features-list">
+                        <li>JavaScript event listeners</li>
+                        <li>Dynamic form visibility</li>
+                        <li>CSS animation integration</li>
+                        <li>Modal popup functionality</li>
+                    </ul>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">DOM</span>
+                    <span class="tech-tag">Event Handling</span>
+                    <span class="tech-tag">Modal</span>
+                </div>
+                <a href="Week 3/wk3.html" class="project-link">View Project</a>
+            </div>
+
+            <div class="project-card">
+                <h3><span class="week-badge">WK4</span>Responsive Navigation & Scroll Effects</h3>
+                <div class="project-description">
+                    <p>Advanced navigation system with smooth scrolling, animated sidebar menu, and scroll-to-top functionality. Features gradient text effects and responsive design.</p>
+                    <ul class="features-list">
+                        <li>Animated sidebar navigation</li>
+                        <li>Smooth scroll behavior</li>
+                        <li>Gradient text effects</li>
+                        <li>Scroll-to-top button</li>
+                        <li>Responsive design</li>
+                    </ul>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Responsive</span>
+                    <span class="tech-tag">Scroll Effects</span>
+                </div>
+                <a href="Week 4/wk4_lab_step1.html" class="project-link">View Project</a>
+            </div>
+
+            <div class="project-card">
+                <h3><span class="week-badge">WK5</span>HTML5 Canvas Graphics</h3>
+                <div class="project-description">
+                    <p>Canvas-based graphics project featuring image manipulation, gradient backgrounds, text rendering, and geometric shapes. Demonstrates 2D canvas drawing capabilities.</p>
+                    <ul class="features-list">
+                        <li>Canvas 2D graphics</li>
+                        <li>Image manipulation and scaling</li>
+                        <li>Linear gradients</li>
+                        <li>Text rendering with shadows</li>
+                        <li>Geometric shape drawing</li>
+                    </ul>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">HTML5 Canvas</span>
+                    <span class="tech-tag">2D Graphics</span>
+                    <span class="tech-tag">Image Processing</span>
+                    <span class="tech-tag">Gradients</span>
+                </div>
+                <a href="Week 5/wk5_lab.html" class="project-link">View Project</a>
+            </div>
+
+            <div class="project-card">
+                <h3><span class="week-badge">WK6</span>Interactive Canvas Game</h3>
+                <div class="project-description">
+                    <p>An interactive ball-popping game built with HTML5 Canvas and JavaScript. Features collision detection, audio integration, and game state management.</p>
+                    <ul class="features-list">
+                        <li>Interactive game mechanics</li>
+                        <li>Collision detection</li>
+                        <li>Audio integration</li>
+                        <li>Random ball generation</li>
+                        <li>Game state management</li>
+                        <li>Mouse interaction</li>
+                    </ul>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-tag">HTML5 Canvas</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Game Development</span>
+                    <span class="tech-tag">Audio API</span>
+                    <span class="tech-tag">Collision Detection</span>
+                </div>
+                <a href="Week 6/wk6_lab.html" class="project-link">View Project</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
