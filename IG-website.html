@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imani Green - Animation Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --warm-green: #8FBC8F;
+            --forest-green: #556B2F;
+            --sage-green: #9CAF88;
+            --olive-green: #6B8E23;
+            --autumn-gold: #DAA520;
+            --warm-brown: #8B4513;
+            --cream: #F5F5DC;
+            --dark-green: #2F4F2F;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: var(--dark-green);
+            background: linear-gradient(135deg, var(--warm-green) 0%, var(--sage-green) 50%, var(--olive-green) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Navigation System */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(47, 79, 47, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(47, 79, 47, 0.98);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--cream);
+            text-decoration: none;
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            from { text-shadow: 0 0 5px var(--autumn-gold); }
+            to { text-shadow: 0 0 20px var(--autumn-gold), 0 0 30px var(--autumn-gold); }
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu li a {
+            color: var(--cream);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-menu li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--autumn-gold), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-menu li a:hover::before {
+            left: 100%;
+        }
+
+        .nav-menu li a:hover {
+            background: var(--warm-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger {
+            width: 25px;
+            height: 3px;
+            background: var(--cream);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="leaves" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="%23DAA520" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23leaves)"/></svg>');
+            animation: leafFall 20s linear infinite;
+        }
+
+        @keyframes leafFall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: heroFadeIn 2s ease-out;
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            color: var(--cream);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: titlePulse 4s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--cream);
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Floating Elements Animation */
+        .floating-element {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--autumn-gold);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; }
+        .floating-element:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 100px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .section {
+            margin-bottom: 80px;
+            padding: 40px;
+            background: rgba(245, 245, 220, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: sectionSlideIn 1s ease-out;
+        }
+
+        @keyframes sectionSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            color: var(--forest-green);
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--autumn-gold), var(--warm-brown));
+            border-radius: 2px;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        /* Interactive Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: var(--cream);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--warm-green), var(--autumn-gold));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .card h3 {
+            color: var(--forest-green);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* Parallax Scrolling Effect */
+        .parallax-section {
+            height: 300px;
+            background: linear-gradient(45deg, var(--warm-green), var(--sage-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin: 60px 0;
+            z-index: 1;
+            border-radius: 20px;
+        }
+
+        .parallax-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--warm-green), var(--sage-green));
+            opacity: 0.8;
+        }
+
+        .parallax-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--cream);
+        }
+
+        /* Loading Animation */
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--warm-green);
+            border-top: 5px solid var(--autumn-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Progress Bar Animation */
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            background: var(--cream);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--warm-green), var(--autumn-gold));
+            width: 0%;
+            animation: progressFill 3s ease-out forwards;
+        }
+
+        @keyframes progressFill {
+            to { width: 85%; }
+        }
+
+        /* Citations Section */
+        .citations {
+            background: var(--dark-green);
+            color: var(--cream);
+            padding: 40px;
+            margin-top: 60px;
+            border-radius: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .citations h3 {
+            margin-bottom: 20px;
+            color: var(--autumn-gold);
+        }
+
+        .citations ul {
+            list-style: none;
+        }
+
+        .citations li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .citations li::before {
+            content: '🍃';
+            position: absolute;
+            left: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--dark-green);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--cream);
+            z-index: 1001;
+        }
+
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--warm-green), var(--autumn-gold));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scrollProgress"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">🎬 Imani Green</a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-toggle" id="mobileToggle">
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="hero-content">
+            <h1>Imani Green</h1>
+            <p>Web Animation Artist & Interactive Designer</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- About Section -->
+        <section id="about" class="section">
+            <h2>About Me</h2>
+            <p>Welcome to my animation portfolio! I'm Imani Green, a passionate web animation artist specializing in creating engaging, interactive experiences through CSS animations, JavaScript interactions, and modern web technologies.</p>
+            <p>My work focuses on bringing static designs to life through carefully crafted animations that enhance user experience while maintaining performance and accessibility. I believe in the power of motion to tell stories and create emotional connections with users.</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🎨 Creative Vision</h3>
+                    <p>I approach each project with a focus on creative storytelling through motion, ensuring every animation serves a purpose and enhances the user experience.</p>
+                </div>
+                <div class="card">
+                    <h3>💻 Technical Expertise</h3>
+                    <p>Proficient in CSS3 animations, JavaScript interactions, HTML5 Canvas, and modern web development frameworks to create seamless animated experiences.</p>
+                </div>
+                <div class="card">
+                    <h3>🚀 Innovation Focus</h3>
+                    <p>Always exploring new animation techniques and pushing the boundaries of what's possible in web-based motion graphics and interactive design.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <h2>Animation Projects</h2>
+            <p>Explore my collection of web animation projects, each showcasing different techniques and creative approaches to bringing digital experiences to life.</p>
+            
+            <!-- Loading Animation Demo -->
+            <div style="text-align: center; margin: 30px 0;">
+                <h3>CSS Keyframe Animations</h3>
+                <div class="loading-spinner"></div>
+                <p>Demonstrating smooth CSS animations with custom timing functions</p>
+            </div>
+
+            <!-- Progress Bar Animation -->
+            <div style="margin: 30px 0;">
+                <h3>Interactive Progress Indicators</h3>
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                </div>
+                <p>Dynamic progress bars with gradient animations and smooth transitions</p>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <h2>Animation Skills & Techniques</h2>
+            <p>My expertise spans multiple animation technologies and techniques, allowing me to create diverse and engaging web experiences.</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🎬 CSS Animations</h3>
+                    <p>Keyframe animations, transitions, transforms, and advanced CSS animation properties for smooth, performant motion graphics.</p>
+                </div>
+                <div class="card">
+                    <h3>⚡ JavaScript Interactions</h3>
+                    <p>Dynamic animations triggered by user interactions, scroll events, and complex state management for interactive experiences.</p>
+                </div>
+                <div class="card">
+                    <h3>🖼️ Canvas Graphics</h3>
+                    <p>HTML5 Canvas animations, particle systems, and custom graphics rendering for complex visual effects.</p>
+                </div>
+                <div class="card">
+                    <h3>📱 Responsive Design</h3>
+                    <p>Animations that adapt seamlessly across devices, ensuring consistent experiences on desktop, tablet, and mobile.</p>
+                </div>
+                <div class="card">
+                    <h3>🎵 Audio Integration</h3>
+                    <p>Synchronizing animations with audio elements and creating immersive multimedia experiences.</p>
+                </div>
+                <div class="card">
+                    <h3>♿ Accessibility</h3>
+                    <p>Creating animations that respect user preferences and accessibility guidelines while maintaining visual appeal.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <h2>Let's Work Together</h2>
+            <p>Ready to bring your ideas to life with engaging animations? I'd love to discuss your project and explore how we can create something amazing together.</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h3>📧 Email</h3>
+                    <p>mr.manigreen21@gmail.com<br>Available for freelance projects</p>
+                </div>
+                <div class="card">
+                    <h3>💼 Portfolio</h3>
+                    <p>View my complete animation portfolio<br>and latest projects</p>
+                </div>
+                <div class="card">
+                    <h3>🤝 Collaboration</h3>
+                    <p>Open to creative partnerships<br>and innovative projects</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Citations -->
+        <div class="citations">
+            <h3>Technical Credits & Citations</h3>
+            <ul>
+                <li>Animation techniques: Original CSS3 and JavaScript implementations</li>
+                <li>Color palette: Custom warm fall green theme designed for this portfolio</li>
+                <li>Typography: Georgia serif font for professional, readable design</li>
+                <li>All animations and effects: Original implementations by Imani Green</li>
+                <li>Design inspiration: Modern web animation trends and user experience principles</li>
+                <li>Responsive framework: Custom CSS Grid and Flexbox layouts</li>
+            </ul>
+        </div>
+
+        <!-- Parallax Section -->
+        <div class="parallax-section">
+            <div class="parallax-content">
+                <h2>Bringing Ideas to Life</h2>
+                <p>Through the power of web animation and interactive design</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            const scrollProgress = document.getElementById('scrollProgress');
+            
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            // Update scroll progress
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            scrollProgress.style.width = scrollPercent + '%';
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobileToggle').addEventListener('click', function() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for section animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for animation triggers
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Parallax scrolling effect
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax-section');
+            
+            parallaxElements.forEach(element => {
+                const speed = 0.5;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Dynamic floating elements
+        function createFloatingElement() {
+            const element = document.createElement('div');
+            element.className = 'floating-element';
+            element.style.left = Math.random() * 100 + '%';
+            element.style.top = Math.random() * 100 + '%';
+            element.style.animationDelay = Math.random() * 6 + 's';
+            document.querySelector('.hero').appendChild(element);
+            
+            setTimeout(() => {
+                element.remove();
+            }, 6000);
+        }
+
+        // Create floating elements periodically
+        setInterval(createFloatingElement, 3000);
+    </script>
+</body>
+</html>
